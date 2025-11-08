@@ -1,0 +1,99 @@
+name: Build website  [Multiarch]
+on:
+  push:
+    branches:
+      - 'master'
+  schedule:
+    - cron: '5 4 * * *'
+
+jobs:
+  build-amd64:
+    runs-on: ubuntu-latest
+    outputs:
+      hash: ${{ steps.vars.outputs.hash }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4.1.1
+
+      - name: Get short commit hash
+        id: vars
+        run: echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build AMD64 Image (and load locally for audit)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          target: frontend-prod
+          platforms: linux/amd64
+          push: false
+          load: true
+          tags: johngh/personal-website:portfolio-amd64
+
+      - name: Run pnpm audit inside AMD64 image
+        run: |
+          docker run --rm johngh/personal-website:portfolio-amd64 \
+            sh -c "pnpm audit --audit-level=moderate"
+
+      - name: Push AMD64 Image (only after audit passes)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          target: frontend-prod
+          platforms: linux/amd64
+          push: true
+          tags: johngh/personal-website:portfolio-amd64
+
+  build-arm64:
+    runs-on: ubuntu-24.04-arm   # ✅ native ARM runner = fast build
+    needs: build-amd64
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4.1.1
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push ARM64 Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          target: frontend-prod
+          platforms: linux/arm64
+          push: true
+          tags: johngh/personal-website:portfolio-arm64
+
+  merge-manifest:
+    runs-on: ubuntu-latest
+    needs:
+      - build-amd64
+      - build-arm64
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Merge multi-arch manifest & push final tags
+        run: |
+          docker manifest create johngh/personal-website:portfolio \
+            --amend johngh/personal-website:portfolio-amd64 \
+            --amend johngh/personal-website:portfolio-arm64
+          docker manifest push johngh/personal-website:portfolio
+
+          docker manifest create johngh/personal-website:portfolio-${{ needs.build-amd64.outputs.hash }} \
+            --amend johngh/personal-website:portfolio-amd64 \
+            --amend johngh/personal-website:portfolio-arm64
+          docker manifest push johngh/personal-website:portfolio-${{ needs.build-amd64.outputs.hash }}
