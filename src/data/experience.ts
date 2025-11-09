@@ -63,6 +63,31 @@ export const EXPERIENCE: ExperienceShowcaseListItemProps[] = [
   },
 ];
 
+export const CERTIFICATES: ExperienceShowcaseListItemProps[] = [
+  {
+    title: "LFS158",
+    organisation: {
+      name: "Linux Foundation",
+      href: "https://linuxfoundation.org",
+    },
+    date: "November 2025",
+    location: "Introduction to Kubernetes",
+    description:
+      "Completed an introductory Kubernetes course with advanced aspect to the material taught, supplemented with \
+      practical experience gained from deploying (production) applications to my personal Kubernetes cluster(s).",
+  },
+  {
+    title: "LFS101",
+    organisation: {
+      name: "Linux Foundation",
+      href: "https://linuxfoundation.org",
+    },
+    date: "June 2025",
+    location: "Introduction to Linux",
+    description: "Completed the LFS101 Course taught by the Linux Foundation.",
+  },
+];
+
 export const PROJECTS: ExperienceShowcaseListItemProps[] = [
   {
     title: "Homelab Platform Engineer",
