@@ -10,5 +10,6 @@ This portfolio is crafted using [Next.js](https://nextjs.org/)
 - [Framer motion](https://www.framer.com/motion/): A React animation library that brings motion to your user interfaces.
 - [Nodemailer](https://nodemailer.com/): A Node.js library facilitating easy email integration with features like attachment handling, HTML content, and support for various email services.
 
-## 🌐Credits
+## 🌐 Credits
+
 The template used to create this website was created by [BUMBAIYA](https://github.com/BUMBAIYA/portfolio-v2)
