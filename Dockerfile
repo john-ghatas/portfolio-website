@@ -1,8 +1,8 @@
 FROM ubuntu:24.04 AS base
 
-ENV NODE_VERSION 24
-ENV ROOT_DIR /usr/portfolio
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_VERSION=24
+ENV ROOT_DIR=/usr/portfolio
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN mkdir $ROOT_DIR
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
