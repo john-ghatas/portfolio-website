@@ -14,6 +14,16 @@ export const PROJECT_SHOWCASE: ProjectShowcaseListItem[] = [
   },
   {
     index: 1,
+    title: "Ansible Roles",
+    href: "https://github.com/jg-ansible",
+    tags: ["Ansible", "Automation"],
+    image: {
+      LIGHT: "/images/projects/ansible-roles.png",
+      DARK: "/images/projects/ansible-roles.png",
+    },
+  },
+  {
+    index: 2,
     title: "GH Actions Starter",
     href: "https://github.com/john-ghatas/github-actions-prep",
     tags: ["CI/CD", "Linux", "Bash", "Github Actions"],
@@ -23,7 +33,7 @@ export const PROJECT_SHOWCASE: ProjectShowcaseListItem[] = [
     },
   },
   {
-    index: 2,
+    index: 3,
     title: "Immutable Linux Repo",
     href: "https://github.com/john-ghatas/immutable-setup",
     tags: ["Fedora", "Open Source", "Automation"],
@@ -43,6 +53,24 @@ export const PROJECTS_CARD: ProjectCardProps[] = [
       "A set of automated maintenance and setup tasks for Debian and RHEL 9 installations.",
     sourceCodeHref: "https://github.com/john-ghatas/ansible-collection",
     liveWebsiteHref: "https://github.com/john-ghatas/ansible-collection",
+  },
+  {
+    name: "Ansible Roles",
+    favicon: "/images/projects/logos/ansible.png",
+    imageUrl: ["/images/projects/ansible-roles.png"],
+    description:
+      "A set of ansible roles to automate initial host installs for RHEL and Debian machines.",
+    sourceCodeHref: "https://github.com/jg-ansible",
+    liveWebsiteHref: "https://github.com/jg-ansible",
+  },
+  {
+    name: "Portfolio Website",
+    favicon: "/images/projects/logos/github.png",
+    imageUrl: ["/static/homepage.png"],
+    description:
+      "The source code to the Portfolio website including multi-arch Docker builds used to deploy on a mixed arch cluster.",
+    sourceCodeHref: "https://github.com/john-ghatas/portfolio-website",
+    liveWebsiteHref: "https://johnghatas.com",
   },
   {
     name: "GH Actions Starter",
