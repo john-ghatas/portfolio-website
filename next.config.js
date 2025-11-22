@@ -15,7 +15,7 @@ const nextConfig = withBundleAnalyzer({
   env: {
     NEXT_PUBLIC_BASE_URL: isProd
       ? "https://johnghatas.com"
-      : "http://localhost:3000",
+      : "http://localhost",
   },
 
   reactStrictMode: true,
