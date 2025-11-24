@@ -77,6 +77,17 @@ export const CERTIFICATES: ExperienceShowcaseListItemProps[] = [
       practical experience gained from deploying (production) applications to my personal Kubernetes cluster(s).",
   },
   {
+    title: "LFS157",
+    organisation: {
+      name: "Linux Foundation",
+      href: "https://linuxfoundation.org",
+    },
+    date: "November 2025",
+    location: "Introduction to Serverless on Kubernetes",
+    description:
+      "Completed Introduction to Serverless on Kubernetes taught by the Linux Foundation.",
+  },
+  {
     title: "LFS101",
     organisation: {
       name: "Linux Foundation",
