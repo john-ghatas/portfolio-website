@@ -4,6 +4,16 @@ import { type ProjectShowcaseListItem } from "@/components/projects/project-show
 export const PROJECT_SHOWCASE: ProjectShowcaseListItem[] = [
   {
     index: 0,
+    title: "Generic Helm Charts",
+    href: "https://github.com/john-ghatas/helmhub",
+    tags: ["Kubernetes", "Helm", "Automation"],
+    image: {
+      LIGHT: "/images/projects/helm.png",
+      DARK: "/images/projects/helm.png",
+    },
+  },
+  {
+    index: 1,
     title: "Ansible Playbooks",
     href: "https://github.com/john-ghatas/ansible-collection",
     tags: ["Ansible", "Automation"],
@@ -13,23 +23,13 @@ export const PROJECT_SHOWCASE: ProjectShowcaseListItem[] = [
     },
   },
   {
-    index: 1,
+    index: 2,
     title: "Ansible Roles",
     href: "https://github.com/jg-ansible",
     tags: ["Ansible", "Automation"],
     image: {
       LIGHT: "/images/projects/ansible-roles.png",
       DARK: "/images/projects/ansible-roles.png",
-    },
-  },
-  {
-    index: 2,
-    title: "GH Actions Starter",
-    href: "https://github.com/john-ghatas/github-actions-prep",
-    tags: ["CI/CD", "Linux", "Bash", "Github Actions"],
-    image: {
-      LIGHT: "/images/projects/gha.png",
-      DARK: "/images/projects/gha.png",
     },
   },
   {
@@ -40,6 +40,16 @@ export const PROJECT_SHOWCASE: ProjectShowcaseListItem[] = [
     image: {
       LIGHT: "/images/projects/immutable.png",
       DARK: "/images/projects/immutable.png",
+    },
+  },
+  {
+    index: 4,
+    title: "GH Actions Starter",
+    href: "https://github.com/john-ghatas/github-actions-prep",
+    tags: ["CI/CD", "Linux", "Bash", "Github Actions"],
+    image: {
+      LIGHT: "/images/projects/gha.png",
+      DARK: "/images/projects/gha.png",
     },
   },
 ];
@@ -53,6 +63,15 @@ export const PROJECTS_CARD: ProjectCardProps[] = [
       "A set of automated maintenance and setup tasks for Debian and RHEL 9 installations.",
     sourceCodeHref: "https://github.com/john-ghatas/ansible-collection",
     liveWebsiteHref: "https://github.com/john-ghatas/ansible-collection",
+  },
+  {
+    name: "Generic Helm Charts",
+    favicon: "/images/projects/logos/github.png",
+    imageUrl: ["/images/projects/helm.png"],
+    description:
+      "A set of helm charts to be used for deployments - this repository includes my own Helm repo hosted via GitHub Pages.",
+    sourceCodeHref: "https://github.com/john-ghatas/helmhub",
+    liveWebsiteHref: "https://john-ghatas.github.io/helmhub/index.yaml",
   },
   {
     name: "Ansible Roles",
