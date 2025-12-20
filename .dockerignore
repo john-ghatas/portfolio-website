@@ -3,3 +3,4 @@ Dockerfile
 dist/
 docker-compose*
 .env*
+README.md
