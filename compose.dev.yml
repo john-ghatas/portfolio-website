@@ -1,5 +1,5 @@
 services:
-  frontend:
+  portfolio:
     restart: always
     environment:
       - NODE_ENV=development
@@ -7,7 +7,6 @@ services:
       target: frontend-dev
     volumes:
       - .:/usr/portfolio:ro
-      - frontend_modules:/usr/portfolio/node_modules
       - next_cache:/usr/portfolio/.next
     ports:
       - '3000:3000'

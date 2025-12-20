@@ -1,5 +1,5 @@
 services:
-  frontend:
+  portfolio:
     privileged: true
     container_name: frontend
     restart: unless-stopped

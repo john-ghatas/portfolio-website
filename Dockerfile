@@ -48,9 +48,11 @@ COPY --from=base --chown=node:node $ROOT_DIR $ROOT_DIR
 
 # ---------- dev ----------
 FROM frontend AS frontend-dev
+COPY --chown=node:node . $ROOT_DIR
 CMD ["npm", "run", "dev"]
 
 # ---------- prod ----------
 FROM frontend AS frontend-prod
+COPY --chown=node:node . $ROOT_DIR
 RUN pnpm run build
 CMD ["npm", "run", "start"]
