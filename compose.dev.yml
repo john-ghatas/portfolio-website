@@ -6,7 +6,8 @@ services:
     build:
       target: frontend-dev
     volumes:
-      - .:/usr/portfolio:ro
+      - ./public:/usr/portfolio/public:ro
+      - ./src:/usr/portfolio/src:ro
       - next_cache:/usr/portfolio/.next
     ports:
       - '3000:3000'

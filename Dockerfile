@@ -22,7 +22,7 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends nodejs \
  && corepack enable \
  && corepack prepare pnpm@latest --activate \
- && npm install -g nodemon@latest \
+ && npm install -g npm@latest \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -40,7 +40,7 @@ COPY --chown=node:node . .
 # =========================================================
 FROM base AS frontend
 WORKDIR $ROOT_DIR
-RUN mkdir -p /usr/portfolio/.next
+RUN mkdir -p $ROOT_DIR/.next
 
 # =========================================================
 # Development image
