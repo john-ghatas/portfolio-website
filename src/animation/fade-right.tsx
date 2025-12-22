@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-
-import { motion } from "framer-motion";
+import { motion, easeInOut } from "framer-motion";
 
 export interface FadeRightProps {
   children: ReactNode;
@@ -22,10 +21,11 @@ export default function FadeRight({
     x: 0,
     transition: {
       duration,
-      ease: "easeInOut",
+      ease: easeInOut, // ✅ type-safe
       delay,
     },
   };
+
   return (
     <motion.div
       initial={{ x: -100, opacity: 0 }}

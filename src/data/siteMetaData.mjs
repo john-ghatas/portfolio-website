@@ -15,5 +15,5 @@ export const siteMetadata = {
   email: "info@johnghatas.com",
   github: "https://github.com/john-ghatas/",
   linkedin: "https://www.linkedin.com/in/john-ghatas-b6bb3412b/",
-  locale: "en-US"
+  locale: "en-US",
 };

@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-
-import { motion } from "framer-motion";
+import { motion, easeInOut } from "framer-motion";
 
 export interface FadeUpProps {
   children: ReactNode;
@@ -20,15 +19,16 @@ export default function FadeUp({
     y: 0,
     transition: {
       duration,
-      ease: "easeInOut",
+      ease: easeInOut, // ✅ type-safe
       delay,
     },
   };
+
   return (
     <motion.div
       initial={{ y: 200, opacity: 0 }}
-      whileInView={whileInView ? animation : {}}
-      animate={!whileInView ? animation : {}}
+      whileInView={whileInView ? animation : undefined}
+      animate={!whileInView ? animation : undefined}
     >
       {children}
     </motion.div>
