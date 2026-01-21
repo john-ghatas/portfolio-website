@@ -11,6 +11,8 @@ import {
   SiProxmox,
   SiKubernetes,
   SiHelm,
+  SiGrafana,
+  SiPrometheus,
 } from "react-icons/si";
 
 import { FcLinux } from "react-icons/fc";
@@ -104,6 +106,19 @@ export const SKILLS_DATA: SkillsShowcaseProps["skills"] = [
       {
         name: "Helm",
         icon: SiHelm,
+      },
+    ],
+  },
+  {
+    sectionName: "Monitoring",
+    skills: [
+      {
+        name: "Grafana",
+        icon: SiGrafana,
+      },
+      {
+        name: "Prometheus",
+        icon: SiPrometheus,
       },
     ],
   },
