@@ -68,7 +68,8 @@
     "overrides": {
       "micromatch": "4.0.8",
       "lodash-es@>=4.0.0 <=4.17.22": ">=4.17.23",
-      "lodash@>=4.0.0 <=4.17.22": ">=4.17.23"
+      "lodash@>=4.0.0 <=4.17.22": ">=4.17.23",
+      "fast-xml-parser@>=4.3.6 <=5.3.3": ">=5.3.4"
     },
     "ignoredBuiltDependencies": [
       "sharp",
