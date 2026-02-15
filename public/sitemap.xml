@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://johnghatas.com/about</loc>
-  </url>
-  <url>
-    <loc>https://johnghatas.com</loc>
-  </url>
-  <url>
-    <loc>https://johnghatas.com/projects</loc>
-  </url>
+<url><loc>https://johnghatas.com/about</loc></url>
+<url><loc>https://johnghatas.com</loc></url>
+<url><loc>https://johnghatas.com/projects</loc></url>
 </urlset>
