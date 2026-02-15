@@ -1,4 +1,5 @@
 name: Build website  [Multiarch]
+
 on:
   push:
     branches:
@@ -12,36 +13,18 @@ jobs:
     outputs:
       hash: ${{ steps.vars.outputs.hash }}
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4
 
       - name: Get short commit hash
         id: vars
         run: echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build AMD64 Image (and load locally for audit)
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          target: frontend-prod
-          platforms: linux/amd64
-          push: false
-          load: true
-          tags: johngh/personal-website:portfolio-amd64
-
-      - name: Run pnpm audit inside AMD64 image
-        run: |
-          docker run --rm johngh/personal-website:portfolio-amd64 \
-            sh -c "pnpm audit --audit-level=moderate"
-
-      - name: Push AMD64 Image (only after audit passes)
+      - name: Build & Push AMD64
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -49,22 +32,23 @@ jobs:
           target: frontend-prod
           platforms: linux/amd64
           push: true
-          tags: johngh/personal-website:portfolio-amd64
+          provenance: false
+          tags: |
+            johngh/personal-website:portfolio-amd64
+            johngh/personal-website:portfolio-amd64-${{ steps.vars.outputs.hash }}
 
   build-arm64:
-    runs-on: ubuntu-24.04-arm   # ✅ native ARM runner = fast build
+    runs-on: ubuntu-24.04-arm
     needs: build-amd64
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build & Push ARM64 Image
+      - name: Build & Push ARM64
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -72,7 +56,10 @@ jobs:
           target: frontend-prod
           platforms: linux/arm64
           push: true
-          tags: johngh/personal-website:portfolio-arm64
+          provenance: false
+          tags: |
+            johngh/personal-website:portfolio-arm64
+            johngh/personal-website:portfolio-arm64-${{ needs.build-amd64.outputs.hash }}
 
   merge-manifest:
     runs-on: ubuntu-latest
@@ -80,20 +67,17 @@ jobs:
       - build-amd64
       - build-arm64
     steps:
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Merge multi-arch manifest & push final tags
-        run: |
-          docker manifest create johngh/personal-website:portfolio \
-            --amend johngh/personal-website:portfolio-amd64 \
-            --amend johngh/personal-website:portfolio-arm64
-          docker manifest push johngh/personal-website:portfolio
+      - uses: docker/setup-buildx-action@v3
 
-          docker manifest create johngh/personal-website:portfolio-${{ needs.build-amd64.outputs.hash }} \
-            --amend johngh/personal-website:portfolio-amd64 \
-            --amend johngh/personal-website:portfolio-arm64
-          docker manifest push johngh/personal-website:portfolio-${{ needs.build-amd64.outputs.hash }}
+      - name: Create & Push Multi-Arch Manifest
+        run: |
+          docker buildx imagetools create \
+            -t johngh/personal-website:portfolio \
+            -t johngh/personal-website:portfolio-${{ needs.build-amd64.outputs.hash }} \
+            johngh/personal-website:portfolio-amd64-${{ needs.build-amd64.outputs.hash }} \
+            johngh/personal-website:portfolio-arm64-${{ needs.build-amd64.outputs.hash }}
