@@ -1,6 +1,6 @@
 services:
   portfolio:
-    restart: always
+    restart: unless-stopped
     environment:
       - NODE_ENV=development
     build:
