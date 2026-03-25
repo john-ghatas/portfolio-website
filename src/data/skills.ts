@@ -23,6 +23,8 @@ import { GiSquidHead } from "react-icons/gi";
 
 import { MdOutlineDns } from "react-icons/md";
 
+import { IoMdCloud } from "react-icons/io";
+
 import { type SkillsShowcaseProps } from "@/components/skills/skills-showcase";
 
 export const SKILLS_DATA: SkillsShowcaseProps["skills"] = [
@@ -106,6 +108,10 @@ export const SKILLS_DATA: SkillsShowcaseProps["skills"] = [
       {
         name: "Helm",
         icon: SiHelm,
+      },
+      {
+        name: "SeaweedFS",
+        icon: IoMdCloud,
       },
     ],
   },
