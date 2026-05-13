@@ -30,7 +30,7 @@ RUN useradd -m node
 RUN chown node:node $ROOT_DIR
 USER node
 
-COPY --chown=node:node package.json pnpm-lock.yaml* ./
+COPY --chown=node:node package.json pnpm-lock.yaml* pnpm-workspace.yaml ./
 RUN pnpm i
 
 COPY --chown=node:node . .
