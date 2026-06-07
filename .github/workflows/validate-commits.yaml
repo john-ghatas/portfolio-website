@@ -21,11 +21,3 @@ jobs:
 
       - name: Validate All Commit Messages
         uses: wagoid/commitlint-github-action@v6
-  validate-build:
-    needs: validate-commits
-    uses: ./.github/workflows/multiarch-build.yaml
-    with:
-      push_image: false
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
