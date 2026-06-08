@@ -74,7 +74,7 @@ jobs:
           file: ./Dockerfile
           target: frontend-prod
           platforms: linux/amd64
-          push: true
+          push: ${{ inputs.push_image }}
           tags: |
             ${{ env.DOCKERHUB_REPO }}:amd64-${{ steps.vars.outputs.hash }}
             ${{ env.GHCR_REPO }}:amd64-${{ steps.vars.outputs.hash }}
@@ -111,7 +111,7 @@ jobs:
           file: ./Dockerfile
           target: frontend-prod
           platforms: linux/arm64
-          push: true
+          push: ${{ inputs.push_image }}
           tags: |
             ${{ env.DOCKERHUB_REPO }}:arm64-${{ env.HASH }}
             ${{ env.GHCR_REPO }}:arm64-${{ env.HASH }}
@@ -120,6 +120,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: [build-amd64, build-arm64]
+    if: ${{ inputs.push_image }}
 
     steps:
       - name: Login Docker Hub
