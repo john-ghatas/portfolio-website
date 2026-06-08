@@ -1,5 +1,9 @@
 name: Build Portfolio Multiarch
 
+permissions:
+  contents: read
+  packages: write
+
 on:
   workflow_call:
     inputs:
@@ -13,9 +17,15 @@ on:
       DOCKERHUB_TOKEN:
         required: true
 
+env:
+  DOCKERHUB_REPO: johngh/portfolio-website
+  GHCR_REPO: ghcr.io/john-ghatas/portfolio-website
+
+
 jobs:
   build-amd64:
     runs-on: ubuntu-latest
+
     outputs:
       hash: ${{ steps.vars.outputs.hash }}
 
@@ -26,14 +36,21 @@ jobs:
         id: vars
         run: echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
-      - uses: docker/login-action@v4
+      - uses: docker/setup-buildx-action@v4
+
+      - name: Login Docker Hub
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - uses: docker/setup-buildx-action@v4
+      - name: Login GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      # local build for audit
       - name: Build AMD64 (local)
         uses: docker/build-push-action@v7
         with:
@@ -50,9 +67,7 @@ jobs:
           docker run --rm local-portfolio:website \
             sh -c "pnpm i && pnpm audit"
 
-      # push AMD64
       - name: Build & Push AMD64
-        if: ${{ inputs.push_image }}
         uses: docker/build-push-action@v7
         with:
           context: .
@@ -60,11 +75,9 @@ jobs:
           target: frontend-prod
           platforms: linux/amd64
           push: true
-          provenance: false
           tags: |
-            johngh/personal-website:portfolio-amd64
-            johngh/personal-website:portfolio-amd64-${{ steps.vars.outputs.hash }}
-
+            ${{ env.DOCKERHUB_REPO }}:amd64-${{ steps.vars.outputs.hash }}
+            ${{ env.GHCR_REPO }}:amd64-${{ steps.vars.outputs.hash }}
 
   build-arm64:
     runs-on: ubuntu-24.04-arm
@@ -73,12 +86,23 @@ jobs:
     steps:
       - uses: actions/checkout@v6.0.2
 
-      - uses: docker/login-action@v4
+      - name: Get hash
+        run: echo "HASH=${{ needs.build-amd64.outputs.hash }}" >> $GITHUB_ENV
+
+      - uses: docker/setup-buildx-action@v4
+
+      - name: Login Docker Hub
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - uses: docker/setup-buildx-action@v4
+      - name: Login GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Push ARM64
         uses: docker/build-push-action@v7
@@ -88,30 +112,53 @@ jobs:
           target: frontend-prod
           platforms: linux/arm64
           push: true
-          provenance: false
           tags: |
-            johngh/personal-website:portfolio-arm64
-            johngh/personal-website:portfolio-arm64-${{ needs.build-amd64.outputs.hash }}
+            ${{ env.DOCKERHUB_REPO }}:arm64-${{ env.HASH }}
+            ${{ env.GHCR_REPO }}:arm64-${{ env.HASH }}
 
 
-  merge-manifest:
+  publish:
     runs-on: ubuntu-latest
-    needs:
-      - build-amd64
-      - build-arm64
+    needs: [build-amd64, build-arm64]
 
     steps:
-      - uses: docker/login-action@v4
+      - name: Login Docker Hub
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Login GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: docker/setup-buildx-action@v4
 
-      - name: Create & Push Multi-Arch Manifest
+      - name: Create multi-arch manifests (latest)
         run: |
+          HASH=${{ needs.build-amd64.outputs.hash }}
+
+          # -------------------------
+          # Docker Hub
+          # -------------------------
           docker buildx imagetools create \
-            -t johngh/personal-website:portfolio \
-            -t johngh/personal-website:portfolio-${{ needs.build-amd64.outputs.hash }} \
-            johngh/personal-website:portfolio-amd64-${{ needs.build-amd64.outputs.hash }} \
-            johngh/personal-website:portfolio-arm64-${{ needs.build-amd64.outputs.hash }}
+            -t ${{ env.DOCKERHUB_REPO }}:live \
+            -t ${{ env.DOCKERHUB_REPO }}:live-$HASH \
+            -t ${{ env.DOCKERHUB_REPO }}:latest \
+            -t ${{ env.DOCKERHUB_REPO }}:latest-$HASH \
+            ${{ env.DOCKERHUB_REPO }}:amd64-$HASH \
+            ${{ env.DOCKERHUB_REPO }}:arm64-$HASH
+
+          # -------------------------
+          # GHCR
+          # -------------------------
+          docker buildx imagetools create \
+            -t ${{ env.GHCR_REPO }}:live \
+            -t ${{ env.GHCR_REPO }}:live-$HASH \
+            -t ${{ env.GHCR_REPO }}:latest \
+            -t ${{ env.GHCR_REPO }}:latest-$HASH \
+            ${{ env.GHCR_REPO }}:amd64-$HASH \
+            ${{ env.GHCR_REPO }}:arm64-$HASH
