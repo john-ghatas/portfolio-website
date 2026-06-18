@@ -18,6 +18,7 @@ RUN apt-get update \
     build-essential \
     libpq-dev \
     bash \
+    tzdata \
  && curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
  && apt-get install -y --no-install-recommends nodejs \
  && corepack enable \
@@ -25,6 +26,9 @@ RUN apt-get update \
  && npm install -g npm@latest \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+
+# Set the timezone to prevent conflict
+ENV TZ=Europe/Amsterdam
 
 RUN useradd -m node
 RUN chown node:node $ROOT_DIR
