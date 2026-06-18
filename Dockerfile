@@ -1,7 +1,7 @@
 # =========================================================
 # Base image – alles gebeurt als non-root, geen chown nodig
 # =========================================================
-FROM ubuntu:24.04 AS base
+FROM ubuntu:latest AS base
 
 ENV NODE_VERSION=24
 ENV ROOT_DIR=/usr/portfolio
