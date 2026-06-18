@@ -5,6 +5,3 @@ allowBuilds:
 overrides:
   "next>postcss": "^8.5.14"
   "brace-expansion": "^5.0.5"
-minimumReleaseAgeExclude:
-  - "node-releases"
-  - "baseline-browser-mapping"
