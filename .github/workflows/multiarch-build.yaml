@@ -65,7 +65,7 @@ jobs:
       - name: Run audit
         run: |
           docker run --rm local-portfolio:website \
-            sh -c "pnpm i && pnpm audit"
+            sh -c "pnpm i && pnpm audit --prod"
 
       - name: Build & Push AMD64
         uses: docker/build-push-action@v7
