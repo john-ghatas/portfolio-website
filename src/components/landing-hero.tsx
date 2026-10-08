@@ -41,23 +41,15 @@ export default function LandingHero() {
               <h1 className="bg-accent bg-clip-text py-2 text-5xl font-bold text-transparent sm:text-6xl md:text-7xl xl:text-8xl">
                 John Ghatas
               </h1>
-              <span className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 md:text-3xl">
+              <span className="text-xl font-semibold text-zinc-900 md:text-3xl dark:text-zinc-100">
                 Platform Engineer
               </span>
             </FadeUp>
             <FadeUp key="description" duration={0.6} delay={0.2}>
-              <div className="mt-8 max-w-3xl text-base font-semibold text-zinc-900 dark:text-zinc-200 sm:text-base md:text-xl">
-                Operations Engineer skilled in RHEL systems, infrastructure
-                automation, and on-prem deployment. Experienced in building
-                homelabs with{" "}
-                <span className="font-semibold text-accent">Terraform</span>,{" "}
-                <span className="font-semibold text-accent">Packer</span>,{" "}
-                <span className="font-semibold text-accent">Proxmox</span>,{" "}
-                <span className="font-semibold text-accent">Debian</span>,{" "}
-                <span className="font-semibold text-accent">pfSense</span>, and
-                venturing into{" "}
-                <span className="font-semibold text-accent">Kubernetes</span>,
-                creating robust setups mirroring enterprise infrastructure.
+              <div className="mt-8 max-w-3xl text-base font-semibold text-zinc-900 sm:text-base md:text-xl dark:text-zinc-200">
+                Building reliable, automated infrastructure with RHEL,
+                Kubernetes and Terraform, and testing enterprise-scale setups in
+                my homelab along the way.
               </div>
             </FadeUp>
           </AnimatePresence>

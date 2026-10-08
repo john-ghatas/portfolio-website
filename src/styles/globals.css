@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.cjs";
 
 /* Self-hosted Montserrat variable font */
 @font-face {
@@ -38,7 +37,7 @@
     @apply border-border;
   }
   body {
-    @apply min-h-screen bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen;
     font-family: "Montserrat", sans-serif;
   }
 }

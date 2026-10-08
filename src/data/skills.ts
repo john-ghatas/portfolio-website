@@ -13,11 +13,14 @@ import {
   SiHelm,
   SiGrafana,
   SiPrometheus,
+  SiDebian,
+  SiTerraform,
 } from "react-icons/si";
 
 import { FcLinux } from "react-icons/fc";
 
 import { FaGithub, FaGitlab, FaMailBulk, FaDocker } from "react-icons/fa";
+import { FaShieldCat } from "react-icons/fa6";
 
 import { GiSquidHead } from "react-icons/gi";
 
@@ -32,8 +35,16 @@ export const SKILLS_DATA: SkillsShowcaseProps["skills"] = [
     sectionName: "Tooling",
     skills: [
       {
-        name: "RedHat Enterprise Linux",
+        name: "RHEL",
         icon: FcLinux,
+      },
+      {
+        name: "Debian",
+        icon: SiDebian,
+      },
+      {
+        name: "Terraform",
+        icon: SiTerraform,
       },
       {
         name: "Ansible",
@@ -68,6 +79,10 @@ export const SKILLS_DATA: SkillsShowcaseProps["skills"] = [
   {
     sectionName: "Networking",
     skills: [
+      {
+        name: "Suricata",
+        icon: FaShieldCat,
+      },
       {
         name: "OPNSense",
         icon: SiOpnsense,

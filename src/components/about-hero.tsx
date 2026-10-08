@@ -30,21 +30,24 @@ export default function AboutHero() {
       <div className="sm:1/2 mt-10 w-full lg:w-1/2">
         <AnimatePresence>
           <FadeUp key="title-greeting" duration={0.6}>
-            <h1 className="text-6xl font-bold text-accent sm:text-7xl md:text-6xl lg:text-5xl xl:text-7xl">
+            <h1 className="text-accent text-6xl font-bold sm:text-7xl md:text-6xl lg:text-5xl xl:text-7xl">
               Hi, I&apos;m John Ghatas
             </h1>
           </FadeUp>
           <FadeUp key="description-1" duration={0.6} delay={0.2}>
-            <p className="mt-8 text-base font-medium text-zinc-900 dark:text-zinc-300 sm:text-lg md:text-lg">
-              Operations Engineer skilled in RHEL systems, infrastructure
-              automation, and on-prem deployment. Experienced in managing
-              homelabs and networking with pfSense, OPNSense, and UniFi, as well
-              as Terraform, Packer, Proxmox, Debian, and Kubernetes (learning
-              and hands-on experience).
+            <p className="mt-8 text-base font-medium text-zinc-900 sm:text-lg md:text-lg dark:text-zinc-300">
+              Building reliable, automated infrastructure with RHEL, Kubernetes
+              and Terraform, and testing enterprise-scale setups in my homelab
+              along the way. I focus on on-prem environments where stability
+              matters, and I like to automate everything I can. My homelab
+              mirrors that approach: Proxmox and Debian as the foundation,
+              OPNsense at the edge, Packer and Terraform for repeatable builds,
+              and Kubernetes on top. It's my space to experiment and keep
+              learning.
             </p>
           </FadeUp>
           <FadeUp key="description-2" duration={0.6} delay={0.4}>
-            <p className="mt-8 text-base font-medium text-zinc-900 dark:text-zinc-300 sm:text-lg md:text-lg">
+            <p className="mt-8 text-base font-medium text-zinc-900 sm:text-lg md:text-lg dark:text-zinc-300">
               Explore my latest{" "}
               <Link href="/projects" className="underline underline-offset-4">
                 <span className="text-accent">projects</span>
@@ -56,7 +59,7 @@ export default function AboutHero() {
             key="hero-location"
             duration={0.6}
             delay={0.8}
-            className="mr-0 mt-8 flex items-center justify-center gap-4 lg:mr-8 lg:justify-end"
+            className="mt-8 mr-0 flex items-center justify-center gap-4 lg:mr-8 lg:justify-end"
           >
             <div className="relative flex w-12 gap-4 overflow-hidden rounded-md">
               <Image
@@ -67,7 +70,7 @@ export default function AboutHero() {
                 height={15}
               />
             </div>
-            <span className="text-lg font-medium text-foreground">
+            <span className="text-foreground text-lg font-medium">
               Amsterdam, Netherlands
             </span>
           </FadeRight>

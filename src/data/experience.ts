@@ -109,8 +109,10 @@ export const PROJECTS: ExperienceShowcaseListItemProps[] = [
     date: "August 2022 - Present",
     location: "Onsite",
     description:
-      "Built a Proxmox-based virtualized environment with automated VM deployments using Ansible, Packer, and Terraform. \
-    The infrastructure runs behind a dedicated firewall powered by a Sense OS for secure and segmented networking.",
+      "A Proxmox-based lab that recreates an enterprise environment at home. Packer builds the images, \
+      Terraform provisions the VMs and Ansible configures them, so every machine can be rebuilt from code. \
+      Kubernetes hosts the workloads, and a dedicated OPNsense firewall keeps the networks segmented, with Suricata \
+      providing intrusion detection.",
   },
   {
     title: "Developer",
