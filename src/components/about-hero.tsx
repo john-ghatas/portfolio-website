@@ -36,14 +36,13 @@ export default function AboutHero() {
           </FadeUp>
           <FadeUp key="description-1" duration={0.6} delay={0.2}>
             <p className="mt-8 text-base font-medium text-zinc-900 sm:text-lg md:text-lg dark:text-zinc-300">
-              Building reliable, automated infrastructure with RHEL, Kubernetes
-              and Terraform, and testing enterprise-scale setups in my homelab
+              I build reliable, automated infrastructure with RHEL, Kubernetes
+              and Terraform, and test enterprise-scale setups in my homelab
               along the way. I focus on on-prem environments where stability
-              matters, and I like to automate everything I can. My homelab
-              mirrors that approach: Proxmox and Debian as the foundation,
-              OPNsense at the edge, Packer and Terraform for repeatable builds,
-              and Kubernetes on top. It's my space to experiment and keep
-              learning.
+              matters, and I automate everything I can. My homelab follows the
+              same approach: Proxmox and Debian as the foundation, OPNsense at
+              the edge, Packer and Terraform for repeatable builds, and
+              Kubernetes on top. It's where I experiment and keep learning.
             </p>
           </FadeUp>
           <FadeUp key="description-2" duration={0.6} delay={0.4}>

@@ -48,8 +48,9 @@ export default function LandingHero() {
             <FadeUp key="description" duration={0.6} delay={0.2}>
               <div className="mt-8 max-w-3xl text-base font-semibold text-zinc-900 sm:text-base md:text-xl dark:text-zinc-200">
                 Building reliable, automated infrastructure with RHEL,
-                Kubernetes and Terraform, and testing enterprise-scale setups in
-                my homelab along the way.
+                Kubernetes and Terraform for on-prem environments where
+                stability matters. Testing enterprise-scale setups in my homelab
+                and automating everything along the way.
               </div>
             </FadeUp>
           </AnimatePresence>

@@ -2,16 +2,30 @@ import { type ExperienceShowcaseListItemProps } from "@/components/experience/ex
 
 export const EXPERIENCE: ExperienceShowcaseListItemProps[] = [
   {
+    title: "Platform Engineer",
+    organisation: {
+      name: "Vrije Universiteit Amsterdam",
+      href: "https://vu.nl",
+    },
+    date: "February 2026 - Present",
+    location: "Amsterdam",
+    description:
+      "Developing a new OpenShift platform, managed the GitOps way with Argo CD and GitLab. Alongside that, \
+      I maintain the existing infrastructure, a mix of RHEL servers on VMware and bare metal, using Ansible to \
+      keep it consistent, hardened and up to date, from out-of-band management up to the application layer.",
+  },
+  {
     title: "CI/CD Engineer",
     organisation: {
       name: "Keylane",
       href: "https://keylane.com",
     },
-    date: "August 2021 - Present",
+    date: "August 2021 - February 2026",
     location: "Utrecht",
     description:
-      "As a Medior CI/CD Engineer, I’m responsible for lifecycle management, process optimization, and routine maintenance. \
-    I also help ensure clients’ platforms run reliably and oversee company-wide changes when required.",
+      "Member of the platform team responsible for the systems our clients depended on every day. \
+      I handled patching and deployments end to end, kept environments secure and stable, and worked \
+      with the team to carry out company-wide changes without disrupting anyone.",
   },
   {
     title: "Full Stack Developer",
