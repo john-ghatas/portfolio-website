@@ -22,7 +22,7 @@
     "@vercel/analytics": "^1.6.1",
     "formik": "^2.4.9",
     "framer-motion": "^12.43.0",
-    "glob": "10.5.0",
+    "glob": "^14.0.2",
     "js-yaml": "^4.3.2",
     "lru-cache": "^10.4.3",
     "lucide-react": "^0.562.0",
